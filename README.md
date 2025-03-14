@@ -171,6 +171,7 @@ Make sure you have the following installed:
 4.  **Start the frontend development server:**
 
     `npm start`
-==========================================
+
+    
     We are excited to have you contribute to **EduBot**, an AI-powered study assistant for students! 🎓🚀  
 
