@@ -36,220 +36,80 @@ EduBot is an AI-powered educational platform designed to assist students in thei
 
 * * *
 
-## 🛠️ **Tech Stack**
+# 📌 API Endpoints Documentation 📡
 
-* *   **Frontend:** React.js, Material-UI
-* *   **Backend:** Express.js, Node.js
-* *   **Database:** MongoDB (Mongoose ODM)
-* *   **Real-Time Communication:** Socket.io
-* *   **AI Model:** Google Gemini API (via RAG for pattern analysis)
-* *   **Deployment:** Vercel (Frontend), Render (Backend)
-* *   **Authentication:** JSON Web Tokens (JWT)
+## Authentication Routes
 
-* * *
+| **Endpoint**                 | **Method** | **Description**                                 | **Request Body** |
+|------------------------------|-----------|-------------------------------------------------|------------------|
+| `/authRoute/register`        | **POST**   | Register a new user.                            | `{ "name": "User Name", "email": "user@example.com", "password": "yourpassword" }` |
+| `/authRoute/login`           | **POST**   | Log in an existing user and receive a JWT token. | `{ "email": "user@example.com", "password": "yourpassword" }` |
+| `/authRoute/me`              | **GET**    | Fetch details of the currently logged-in user.  | Requires `Authorization` token in headers. |
 
-## 🔗 **APIs Used**
+---
 
-Endpoint
+## **Collaborative Group Chat Bot Routes**
 
-Method
+| **Endpoint**                         | **Method** | **Description**                                  | **Request Body** |
+|--------------------------------------|-----------|------------------------------------------------|------------------|
+| `/collaborative/create`              | **POST**   | Create a new group with participants.         | `{ "name": "Group Name", "participantNames": ["user1", "user2"], "creatorId": "userId" }` |
+| `/collaborative/my-groups/:userId`   | **GET**    | Fetch all groups the user is part of.         | Requires `userId` as URL parameter |
+| `/collaborative/messages/:groupId`   | **GET**    | Fetch all messages in a specific group chat.  | Requires `groupId` as URL parameter |
+| `/collaborative/send`                 | **POST**   | Send a message to the group chat. If `@AI` is mentioned, AI will respond. | `{ "groupId": "groupId", "userId": "userId", "text": "message content" }` |
 
-Description
+---
 
-Request Format
+## **Doubt Solver Bot Routes**
 
-Response Format
+| **Endpoint**                  | **Method** | **Description**                                   | **Request Body** |
+|--------------------------------|-----------|-------------------------------------------------|------------------|
+| `/doubtBot/chat`               | **POST**   | Ask AI a question and receive a response.       | `{ "sessionId": "sessionId", "message": "user question" }` |
+| `/doubtBot/history`            | **GET**    | Get previous conversations history.             | No request body required |
+| `/doubtBot/chat/:sessionId`    | **GET**    | Get all chat messages of a specific session.   | Requires `sessionId` as a URL parameter |
 
-`/authRoute/register`
+---
 
-**POST**
+## **Question Paper Generator Routes**
 
-Register a new user.
+| **Endpoint**                   | **Method** | **Description**                                  | **Request Body** |
+|--------------------------------|-----------|------------------------------------------------|------------------|
+| `/extractText/extract`         | **POST**   | Extract text and pattern from uploaded PDFs (syllabus & sample QP). | `{ "syllabusText": "syllabus content", "previousQPText": "previous question paper content" }` |
+| `/generatePdf/generate`        | **POST**   | Generate a formatted question paper in PDF based on extracted pattern and syllabus. | `{ "difficulty": "easy/medium/hard", "syllabusText": "syllabus content", "previousQPText": "previous question paper content" }` |
+| `/generatePdf/download/:fileName` | **GET**    | Download the generated question paper as a PDF. | Requires `fileName` as a URL parameter |
 
-`{ "name": "User Name", "email": "user@example.com", "password": "yourpassword" }`
+---
 
-`{ "message": "User registered" }`
+## **WebSocket (Socket.IO) Routes for Real-time Messaging**
 
-`/authRoute/login`
+| **Event Name**      | **Description**                                   | **Payload** |
+|---------------------|---------------------------------------------------|-------------|
+| `joinGroup`        | User joins a specific group chat room.            | `{ "groupId": "groupId" }` |
+| `sendMessage`      | Sends a message to a group chat.                   | `{ "groupId": "groupId", "sender": { "_id": "userId", "name": "User" }, "text": "message content", "time": "timestamp" }` |
+| `receiveMessage`   | Listens for incoming messages from other users.    | `{ "groupId": "groupId", "sender": { "_id": "userId", "name": "User" }, "text": "message content", "time": "timestamp" }` |
 
-**POST**
+---
 
-Logs in an existing user and returns a JWT token.
+## **Deployment Details** 🚀
 
-`{ "email": "user@example.com", "password": "yourpassword" }`
+- **Frontend**: Deployed on [Vercel](https://vercel.com/)
+- **Backend**: Deployed on [Render](https://render.com/)
+- **Database**: MongoDB Atlas (Cloud Database)
 
-`{ "token": "your_jwt_token", "userId": "user_id", "name": "User's Name" }`
+### **Tech Stack**
+- **Frontend**: React.js (Create React App) with **MUI**
+- **Backend**: Express.js (Node.js)
+- **Database**: MongoDB + Mongoose
+- **AI Model**: Gemini (via `@google/generative-ai`)
+- **WebSockets**: Socket.io (for real-time group chat)
+- **Frontend Hosting**: Vercel
+- **Backend Hosting**: Render
+- **Authentication**: JWT-based authentication
+- **Question Paper PDF Generation**: PDFKit
+- **PDF Text Extraction**: `pdf-parse` library
 
-`/authRoute/me`
+## **How to Run the Project Locally** 🖥️
 
-**GET**
-
-Fetches the logged-in user's details.
-
-Headers: `{ Authorization: "Bearer <your_jwt_token>" }`
-
-`{ "name": "User's Name", "id": "user_id", "email": "user@example.com" }`
-
-`/collaborative/create`
-
-**POST**
-
-Creates a **new group** with participants.
-
-`{ "name": "group name", "participantNames": ["friend1", "friend2"], "creatorId": "user_id" }`
-
-`{ "group": { "_id": "group_id", "name": "group name", "participants": [...] } }`
-
-`/collaborative/my-groups/:userId`
-
-**GET**
-
-Fetches all **groups** of the logged-in user.
-
-N/A
-
-`{ "groups": [{ "_id": "group_id", "name": "group name", "participants": [...] }] }`
-
-`/collaborative/messages/:groupId`
-
-**GET**
-
-Fetches **chat messages** for a selected group.
-
-N/A
-
-`[ { "_id": "msg_id", "sender": { "_id": "user_id", "name": "User" }, "text": "message", "time": "timestamp" } ]`
-
-`/collaborative/send`
-
-**POST**
-
-Sends a **message** to a group chat. AI will respond if mentioned.
-
-`{ "groupId": "group_id", "userId": "user_id", "text": "message" }`
-
-`{ "aiResponse": "AI generated response", "aiChat": { "_id": "msg_id", "sender": { "_id": "ai_user_id", "name": "AI" }, "text": "response" } }`
-
-`/doubtBot/chat`
-
-**POST**
-
-Sends a doubt and gets AI's answer.
-
-`{ "sessionId": "session_id", "message": "doubt" }`
-
-`{ "answer": "AI response" }`
-
-`/doubtBot/history`
-
-**GET**
-
-Fetches previous **doubt-solving chat history**.
-
-N/A
-
-`[ { sessionId: "session_id", messages: [...] } ]`
-
-`/doubtBot/chat/:sessionId`
-
-**GET**
-
-Fetches **messages from the specific doubt session**.
-
-N/A
-
-`{ "messages": [{ "sender": "user/AI", "text": "message", "time": "timestamp" }] }`
-
-`/extractText/extract`
-
-**POST**
-
-Extracts text from uploaded **syllabus or sample question paper PDF**.
-
-`{ file: uploaded_pdf_file }`
-
-`{ "text": "Extracted syllabus or sample questions" }`
-
-`/generatePdf/generate`
-
-**POST**
-
-**Generates a question paper PDF** using AI from the extracted syllabus and samples.
-
-`{ syllabus: "text", samples: ["sample QP text"], difficulty: "easy/medium/hard" }`
-
-`{ "file": "generated_qp.pdf" }`
-
-`/generatePdf/download/:file`
-
-**GET**
-
-Downloads the **generated question paper PDF**.
-
-N/A
-
-File Download
-
-`/generatePdf/upload`
-
-**POST**
-
-**Uploads syllabus & sample question paper** PDFs for extraction.
-
-`{ file: uploaded_pdf_file }`
-
-`{ "message": "File uploaded", "fileUrl": "file_path" }`
-
-* * *
-
-## ⚙ Backend Deployment (Node.js on Render)
-
-Your backend is a **Node.js Express server** that includes API routes and WebSocket support for real-time communication.
-
-### **Steps to Deploy Backend on Render**
-
-1. 1.  **Push your `backend` folder to GitHub**:
-1.     
-1.     sh
-1.     
-1.     CopyEdit
-1.     
-1.     `cd D:/EduBot/backend git init git add . git commit -m "Initial commit for backend" git branch -M main git remote add origin https://github.com/Rajukrsna/EduBot-Backend.git git push -u origin main`
-1.     
-1. 2.  **Deploy on Render**:
-1.     
-1.     * *   Go to [Render](https://render.com/).
-1.     * *   Click on **"New"** → **"Web Service"**.
-1.     * *   Connect your GitHub and select your `backend` repository (`EduBot`).
-1.     * *   Choose **Node.js** as the runtime.
-1.     * *   Set the **Build Command**:
-1.     *     
-1.     *     nginx
-1.     *     
-1.     *     CopyEdit
-1.     *     
-1.     *     `npm install`
-1.     *     
-1.     * *   Set the **Start Command** to:
-1.     *     
-1.     *     nginx
-1.     *     
-1.     *     CopyEdit
-1.     *     
-1.     *     `node server.js`
-1.     *     
-1.     * *   Under **"Environment Variables"**, add:* *   `JWT_SECRET`: Your JWT secret key.
-1.     *     * *   `MONGO_URI`: Your MongoDB connection string.
-1.     * *   Click **"Deploy"**.
-
-* * *
-
-## 🛠 Tech Stack
-
-* *   **Frontend**: React.js (Material UI, React Router, ReactMarkdown, Axios)
-* *   **Backend**: Express.js, Node.js
-* *   **Database**: MongoDB (Mongoose)
-* *   **AI Model**: Google Gemini AI
-* *   **Real-time Communication**: Socket.io
-* *   **Deployment**: Vercel (Frontend) & Render (Backend)
-* *   **Cloud Services**: Vultr (for potential hosting)u can paste directly from Word or other rich text sources.
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/Rajukrsna/EduBot.git
+   cd edu-bot
