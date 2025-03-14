@@ -134,7 +134,7 @@ Make sure you have the following installed:
 ```sh
 git clone https://github.com/Rajukrsna/EduBot.git
 cd EduBot
-
+==========================================
 * * * * *
 
 ### **2️ Backend Setup**
@@ -153,7 +153,7 @@ cd EduBot
     PORT=5000
     MONGO_URI=your_mongodb_connection_string
     JWT_SECRET=your_jwt_secret_key
-
+==========================================
 4.  **Run the Backend Server**
 
     `node index.js`
