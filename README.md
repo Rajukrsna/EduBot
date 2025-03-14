@@ -1,5 +1,3 @@
-Paste your rich text content here. Yo
-
 # **EduBot - AI-Powered Educational Chatbot Platform** 🤖📚
 
 EduBot is an AI-powered educational platform designed to assist students in their learning process. It consists of **three chatbots** to help students with question paper generation, doubt solving, and collaborative group discussions, with AI integrated as a participant.
