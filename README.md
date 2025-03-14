@@ -107,13 +107,6 @@ EduBot is an AI-powered educational platform designed to assist students in thei
 - **Question Paper PDF Generation**: PDFKit
 - **PDF Text Extraction**: `pdf-parse` library
 
-## **How to Run the Project Locally** 🖥️
-
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/Rajukrsna/EduBot.git
-   cd edu-bot
-   🚀 **EduBot - Installation & Local Setup**
 ==========================================
 
 **🛠 Prerequisites**
@@ -178,6 +171,6 @@ Make sure you have the following installed:
 4.  **Start the frontend development server:**
 
     `npm start`
-
+==========================================
     We are excited to have you contribute to **EduBot**, an AI-powered study assistant for students! 🎓🚀  
 
