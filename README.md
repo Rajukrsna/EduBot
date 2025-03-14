@@ -130,14 +130,14 @@ Make sure you have the following installed:
 **🔹 Steps to Run the Project Locally**
 ---------------------------------------
 
-### **1️⃣ Clone the Repository**
+### **1️ Clone the Repository**
 
 `git clone https://github.com/Rajukrsna/EduBot.git
 cd EduBot`
 
 * * * * *
 
-### **2️⃣ Backend Setup**
+### **2️ Backend Setup**
 
 1.  **Navigate to the backend folder:**
 
@@ -160,7 +160,7 @@ cd EduBot`
 
 * * * * *
 
-### **2️⃣ Run the Frontend (React)**
+### **3 Run the Frontend (React)**
 
 1.  **Open another terminal and navigate to the frontend folder:**
 
@@ -168,22 +168,16 @@ cd EduBot`
 
 2.  **Install dependencies:**
 
- 
     `npm install`
 
 3.  **Set up environment variables**\
     Create a `.env` file inside the `edubot/` folder and add:
 
-    env
-
-    CopyEdit
-
     `REACT_APP_BACKEND_URL=http://localhost:5000`
 
 4.  **Start the frontend development server:**
 
-    sh
-
-    CopyEdit
-
     `npm start`
+
+    We are excited to have you contribute to **EduBot**, an AI-powered study assistant for students! 🎓🚀  
+
