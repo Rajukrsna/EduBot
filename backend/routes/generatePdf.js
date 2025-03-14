@@ -74,7 +74,7 @@ router.post("/generate", async (req, res) => {
         // Finalize the PDF
         doc.end();
 
-        res.json({ message: "Question paper generated!", downloadLink: `http://localhost:5000/generatePdf/download/${pdfPath}` });
+        res.json({ message: "Question paper generated!", downloadLink: `https://edubot-i8xk.onrender.com/generatePdf/download/${pdfPath}` });
 
     } catch (error) {
         console.error("Error generating question paper:", error);
