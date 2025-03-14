@@ -113,3 +113,77 @@ EduBot is an AI-powered educational platform designed to assist students in thei
    ```sh
    git clone https://github.com/Rajukrsna/EduBot.git
    cd edu-bot
+   🚀 **EduBot - Installation & Local Setup**
+==========================================
+
+**🛠 Prerequisites**
+--------------------
+
+Make sure you have the following installed:
+
+-   **[Node.js](https://nodejs.org/) (LTS version recommended)**
+-   **[Git](https://git-scm.com/)**
+-   **MongoDB Atlas** (or MongoDB installed locally)
+
+* * * * *
+
+**🔹 Steps to Run the Project Locally**
+---------------------------------------
+
+### **1️⃣ Clone the Repository**
+
+`git clone https://github.com/Rajukrsna/EduBot.git
+cd EduBot`
+
+* * * * *
+
+### **2️⃣ Backend Setup**
+
+1.  **Navigate to the backend folder:**
+
+    `cd backend`
+
+2.  **Install dependencies**
+
+    `npm install`
+
+3.  **Set Up Environment Variables**\
+    Create a `.env` file inside the `backend` folder and add the following:
+
+    `PORT=5000
+    MONGO_URI=your_mongodb_connection_string
+    JWT_SECRET=your_jwt_secret_key`
+
+4.  **Run the Backend Server**
+
+    `node index.js`
+
+* * * * *
+
+### **2️⃣ Run the Frontend (React)**
+
+1.  **Open another terminal and navigate to the frontend folder:**
+
+    `cd ../edubot`
+
+2.  **Install dependencies:**
+
+ 
+    `npm install`
+
+3.  **Set up environment variables**\
+    Create a `.env` file inside the `edubot/` folder and add:
+
+    env
+
+    CopyEdit
+
+    `REACT_APP_BACKEND_URL=http://localhost:5000`
+
+4.  **Start the frontend development server:**
+
+    sh
+
+    CopyEdit
+
+    `npm start`
