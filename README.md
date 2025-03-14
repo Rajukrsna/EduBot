@@ -131,9 +131,9 @@ Make sure you have the following installed:
 ---------------------------------------
 
 ### **1️ Clone the Repository**
-
-`git clone https://github.com/Rajukrsna/EduBot.git
-cd EduBot`
+```sh
+git clone https://github.com/Rajukrsna/EduBot.git
+cd EduBot
 
 * * * * *
 
@@ -149,10 +149,10 @@ cd EduBot`
 
 3.  **Set Up Environment Variables**\
     Create a `.env` file inside the `backend` folder and add the following:
-
-    `PORT=5000
+```sh
+    PORT=5000
     MONGO_URI=your_mongodb_connection_string
-    JWT_SECRET=your_jwt_secret_key`
+    JWT_SECRET=your_jwt_secret_key
 
 4.  **Run the Backend Server**
 
