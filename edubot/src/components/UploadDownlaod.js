@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Card, CardContent, Typography, Stack, Box, InputLabel } from "@mui/material";
 import axios from "axios";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const UploadDownload = ({ onDataProcessed }) => {
   const [syllabusFile, setSyllabusFile] = useState(null);
@@ -22,7 +23,7 @@ const UploadDownload = ({ onDataProcessed }) => {
     formData.append("previous_qp", questionPaperFile);
 
     try {
-      const response = await axios.post("http://localhost:5000/extractText/extract", formData, {
+      const response = await axios.post(`${backendUrl}/extractText/extract`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

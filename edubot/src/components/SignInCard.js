@@ -29,6 +29,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
     width: '450px',
   },
 }));
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 export default function SignInCard() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export default function SignInCard() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/authRoute/login", { email, password });
+      const response = await axios.post(`${backendUrl}/authRoute/login`, { email, password });
       if (response.data) {
         localStorage.setItem("authToken", response.data.token);
         localStorage.setItem("userId", response.data.userId);  // ✅ Store User ID

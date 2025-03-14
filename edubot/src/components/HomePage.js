@@ -5,6 +5,7 @@ import { School, Help, Chat } from "@mui/icons-material"; // Icons for represent
 import { useState, useEffect } from "react";  
 import axios from "axios"; // Import axios for API calls 
 import {ReactComponent as Bot} from "../bot.svg"; // Import bot logo
+
 const bots = [
   {
     title: "QP Generator Bot",
@@ -26,6 +27,9 @@ const bots = [
   },
 ];
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
+
 const Homepage = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -40,7 +44,7 @@ const Homepage = () => {
           return;
         }
 
-        const response = await axios.get("http://localhost:5000/authRoute/me", {
+        const response = await axios.get(`${backendUrl}/authRoute/me`, {
           headers: { Authorization: `Bearer ${token}` }, // ✅ Fixed: Use "Bearer " prefix
         });
 

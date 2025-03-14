@@ -7,6 +7,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import axios from "axios";
 import bot from "../assets/bot1.png";  
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const QAList = ({ syllabusText, previousQPText , onLinkData}) => {
   const [messages, setMessages] = useState([
@@ -23,7 +24,7 @@ const QAList = ({ syllabusText, previousQPText , onLinkData}) => {
     setInput("");
 
     try {
-      const response = await axios.post("http://localhost:5000/generatePdf/generate", {
+      const response = await axios.post(`${backendUrl}/generatePdf/generate`, {
         difficulty: input,
         syllabusText,
         previousQPText

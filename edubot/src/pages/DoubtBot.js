@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 import ReactMarkdown from "react-markdown";  // ✅ Import markdown support
 
 import axios from "axios";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const ChatbotUI = () => {
   const [sessionId, setSessionId] = useState(localStorage.getItem("sessionId") || uuidv4());
@@ -29,12 +30,12 @@ const ChatbotUI = () => {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/doubtBot/history")
+    axios.get(`${backendUrl}/doubtBot/history`)
       .then((response) => setHistory(response.data))
       .catch((error) => console.error("Error fetching history:", error));
   
     // Load existing session messages
-    axios.get(`http://localhost:5000/doubtBot/chat/${sessionId}`)
+    axios.get(`${backendUrl}/doubtBot/chat/${sessionId}`)
       .then((response) => setMessages(response.data))
       .catch((error) => console.error("Error loading chat:", error));
   }, [sessionId]);
@@ -46,7 +47,7 @@ const ChatbotUI = () => {
     setMessages([...messages, newMessage]);
 
     try {
-      const response = await axios.post("http://localhost:5000/doubtBot/chat", {  sessionId,message: input });
+      const response = await axios.post(`${backendUrl}/doubtBot/chat`, {  sessionId,message: input });
       console.log(response.data.answer)
       const botReply = { text: response.data.answer, sender: "bot" };
       console.log(botReply)

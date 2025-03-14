@@ -13,7 +13,7 @@ const io = socketIo(server, { cors: { origin: "*" } });
 
 
 app.use(cors({
-    origin: "http://localhost:3000", 
+    origin: process.env.FRONTEND_URL, // ✅ Allow the frontend to connect to this server
     credentials: true, // ✅ Allow cookies & authentication headers
     // Adjust if frontend is on a different port
     methods: ["GET", "POST"],

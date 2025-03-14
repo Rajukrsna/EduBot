@@ -5,8 +5,9 @@ import AddIcon from "@mui/icons-material/Add";
 import { blue } from "@mui/material/colors";
 import axios from "axios";
 import { io } from "socket.io-client";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-const socket = io("http://localhost:5000"); // Connect to backend
+const socket = io(`${backendUrl}`); // Connect to backend
 
 const ChatApp = () => {
   const [groups, setGroups] = useState([]); 
@@ -23,7 +24,7 @@ const ChatApp = () => {
   // Fetch user's groups on load
   useEffect(() => {
     if (!userId) return; // Ensure user is logged in
-    axios.get(`http://localhost:5000/collaborative/my-groups/${userId}`)
+    axios.get(`${backendUrl}/collaborative/my-groups/${userId}`)
       .then(res => setGroups(res.data))
       .catch(err => console.error("Error fetching groups:", err));
   }, []);
@@ -32,7 +33,7 @@ const ChatApp = () => {
   useEffect(() => {
     if (!selectedGroup) return;
 
-    axios.get(`http://localhost:5000/collaborative/messages/${selectedGroup}`)
+    axios.get(`${backendUrl}/collaborative/messages/${selectedGroup}`)
       .then(res => setMessages(res.data))
       .catch(err => console.error("Error fetching messages:", err));
 
@@ -65,7 +66,7 @@ const ChatApp = () => {
     socket.emit("sendMessage", messageData);
 
     try {
-      const response = await axios.post("http://localhost:5000/collaborative/send", messageData);
+      const response = await axios.post(`${backendUrl}/collaborative/send`, messageData);
       if (response.data.aiResponse) {
         const aiMsg = {
           groupId: selectedGroup,
@@ -93,7 +94,7 @@ const ChatApp = () => {
 
     const participantNames = participants.split(",").map((p) => p.trim());
 
-    axios.post("http://localhost:5000/collaborative/create", { 
+    axios.post(`${backendUrl}/collaborative/create`, { 
       name: groupName, 
       participantNames, 
       creatorId: userId 
