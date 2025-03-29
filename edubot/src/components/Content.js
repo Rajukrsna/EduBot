@@ -3,35 +3,35 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import AutoFixHighRoundedIcon from '@mui/icons-material/AutoFixHighRounded';
-import ConstructionRoundedIcon from '@mui/icons-material/ConstructionRounded';
-import SettingsSuggestRoundedIcon from '@mui/icons-material/SettingsSuggestRounded';
-import ThumbUpAltRoundedIcon from '@mui/icons-material/ThumbUpAltRounded';
-import { SitemarkIcon } from './CustomIcons';
+import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+import logo3 from '../logo4.svg';
 
 const items = [
   {
-    icon: <SettingsSuggestRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Adaptable performance',
+    icon: <DescriptionRoundedIcon sx={{ color: 'text.secondary' }} />,
+    title: 'AI QP Generator',
     description:
-      'Our product effortlessly adjusts to your needs, boosting efficiency and simplifying your tasks.',
+      'Generate high-quality question papers instantly. Customize questions based on difficulty, topics, and exam patterns.',
   },
   {
-    icon: <ConstructionRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Built to last',
+    icon: <ChatRoundedIcon sx={{ color: 'text.secondary' }} />,
+    title: 'Doubt Solver Bot',
     description:
-      'Experience unmatched durability that goes above and beyond with lasting investment.',
+      'Get instant answers to academic queries. Our AI-powered bot provides explanations, references, and step-by-step solutions.',
   },
   {
-    icon: <ThumbUpAltRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Great user experience',
+    icon: <GroupsRoundedIcon sx={{ color: 'text.secondary' }} />,
+    title: 'Collaborative AI Chat',
     description:
-      'Integrate our product into your routine with an intuitive and easy-to-use interface.',
+      'Form study groups with AI as an interactive member. Discuss topics, get insights, and engage in intelligent discussions.',
   },
   {
     icon: <AutoFixHighRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Innovative functionality',
+    title: 'Smart Learning Assistance',
     description:
-      'Stay ahead with features that set new standards, addressing your evolving needs better than the rest.',
+      'EduBot adapts to your learning needs, offering personalized study recommendations and interactive support.',
   },
 ];
 
@@ -40,14 +40,17 @@ export default function Content() {
     <Stack
       sx={{ flexDirection: 'column', alignSelf: 'center', gap: 4, maxWidth: 450 }}
     >
-      <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-        <SitemarkIcon />
+      {/* EduBot Logo */}
+      <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
+        <img src={logo3} alt="EduBot Logo" style={{ width: '120px', height: 'auto' }} />
       </Box>
+
+      {/* Feature List */}
       {items.map((item, index) => (
         <Stack key={index} direction="row" sx={{ gap: 2 }}>
           {item.icon}
           <div>
-            <Typography gutterBottom sx={{ fontWeight: 'medium' }}>
+            <Typography gutterBottom sx={{ fontWeight: 'bold' }}>
               {item.title}
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>

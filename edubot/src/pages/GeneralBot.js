@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Avatar, Box, Button, List, ListItem, ListItemAvatar, ListItemText, Paper, TextField, Typography, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import {  Box, Button, List, ListItem, ListItemText, Paper, TextField, Typography, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import AddIcon from "@mui/icons-material/Add";
 import { blue } from "@mui/material/colors";
 import axios from "axios";
-import { io } from "socket.io-client";
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-const socket = io(`${backendUrl}`); // Connect to backend
 
 const ChatApp = () => {
   const [groups, setGroups] = useState([]); 
   const [selectedGroup, setSelectedGroup] = useState(null);
-  const [friends, setFriends] = useState([]);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [openModal, setOpenModal] = useState(false);
@@ -27,7 +24,7 @@ const ChatApp = () => {
     axios.get(`${backendUrl}/collaborative/my-groups/${userId}`)
       .then(res => setGroups(res.data))
       .catch(err => console.error("Error fetching groups:", err));
-  }, []);
+  }, [userId]);
 
   // Fetch messages when a group is selected
   useEffect(() => {
@@ -37,18 +34,8 @@ const ChatApp = () => {
       .then(res => setMessages(res.data))
       .catch(err => console.error("Error fetching messages:", err));
 
-    socket.emit("joinGroup", selectedGroup); // Join the group room
   }, [selectedGroup]);
 
-  useEffect(() => {
-    socket.on("receiveMessage", (msg) => {
-      setMessages((prev) => [...prev, msg]);
-    });
-
-    return () => {
-      socket.off("receiveMessage");
-    };
-  }, []);
 
   const sendMessage = async () => {
     if (!newMessage.trim() || !selectedGroup) return;
@@ -63,7 +50,6 @@ const ChatApp = () => {
     setMessages((prev) => [...prev, messageData]); // Keep user message
     setNewMessage("");
 
-    socket.emit("sendMessage", messageData);
 
     try {
       const response = await axios.post(`${backendUrl}/collaborative/send`, messageData);
@@ -75,7 +61,6 @@ const ChatApp = () => {
           time: new Date().toLocaleTimeString(),
         };
         setMessages((prev) => [...prev, aiMsg]);
-        socket.emit("sendMessage", aiMsg);
       }
     } catch (error) {
       console.error("Error sending message:", error);

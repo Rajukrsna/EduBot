@@ -1,0 +1,28 @@
+<svg
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 200 200"
+    width="200"
+    height="200"
+    fill="none"
+>
+    <!-- Head (Robot) -->
+    <rect x="50" y="40" width="100" height="80" rx="15" ry="15" fill="#4A90E2" stroke="black" stroke-width="3"/>
+    
+    <!-- Eyes -->
+    <circle cx="75" cy="70" r="10" fill="white" stroke="black" stroke-width="3"/>
+    <circle cx="125" cy="70" r="10" fill="white" stroke="black" stroke-width="3"/>
+    <circle cx="75" cy="70" r="5" fill="black"/>
+    <circle cx="125" cy="70" r="5" fill="black"/>
+    
+    <!-- Antenna -->
+    <line x1="100" y1="25" x2="100" y2="40" stroke="black" stroke-width="3"/>
+    <circle cx="100" cy="20" r="5" fill="red" stroke="black" stroke-width="2"/>
+    
+    <!-- Mouth (Smile) -->
+    <path d="M75 100 Q100 120 125 100" stroke="black" stroke-width="3" fill="none"/>
+    
+    <!-- Body (Book Shape) -->
+    <rect x="60" y="120" width="80" height="50" fill="#FFD700" stroke="black" stroke-width="3"/>
+    <line x1="100" y1="120" x2="100" y2="170" stroke="black" stroke-width="3"/>
+</svg>

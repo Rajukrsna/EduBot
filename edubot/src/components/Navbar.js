@@ -6,13 +6,13 @@ import { DashboardIcon, LogoutIcon } from "../components/CustomIcons";
 import { ReactComponent as SmartVerifyLogo } from "../logo.svg";
 import HomeIcon from "@mui/icons-material/Home";
 import AssessmentIcon from "@mui/icons-material/Assessment"; // For Evaluation
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 const Navbar = () => {
   const navigate = useNavigate();
- const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated ,setIsAuthenticated} = useContext(AuthContext);
 
-  useEffect(() => {
-   setIsAuthenticated(!!localStorage.getItem("authToken"));
-  }, []);
+
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");

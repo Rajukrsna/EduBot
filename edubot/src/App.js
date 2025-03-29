@@ -1,9 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Container, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Navbar from "./components/Navbar";
-import UploadDownload from "./components/UploadDownlaod"; // Fixed typo
-import QAList from "./components/QAList";
 import CssBaseline from "@mui/material/CssBaseline";
 import Stack from "@mui/material/Stack";
 import AppTheme from "./theme/AppTheme";
@@ -17,12 +15,15 @@ import Dashboard from "./pages/Dashboard";
 import SignInSide from "./pages/SignInSide";  
 import SignUp from "./pages/SignUp"; 
 import ProtectedRoute  from "./components/ProtectedRoute";
+import { AuthProvider } from "./context/AuthContext";
 
 const Evaluation = () => <Typography variant="h4">Evaluation Page</Typography>;
 const NotFound = () => <Typography variant="h4">404 - Page Not Found</Typography>;
 
 const App = (props) => {
   return (
+    <AuthProvider>
+
     <Router>
       <Navbar />
       <AppTheme {...props}>
@@ -79,6 +80,7 @@ const App = (props) => {
         </Stack>
       </AppTheme>
     </Router>
+    </AuthProvider>
   );
 };
 

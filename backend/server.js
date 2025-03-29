@@ -6,36 +6,18 @@ const app = express();
 dotenv.config();
 connectDB();
 const http = require("http");
-const socketIo = require("socket.io");
 
-const server = http.createServer(app);
-const io = socketIo(server, { cors: { origin: "*" } });
 
 
 app.use(cors({
-    origin: process.env.FRONTEND_URL, // ✅ Allow the frontend to connect to this server
-    credentials: true, // ✅ Allow cookies & authentication headers
-    // Adjust if frontend is on a different port
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type","Authorization"]
+  origin: "*", // Allow all origins (Only for testing, not in production)
+  credentials: true,
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
 app.use(express.json());
 
-io.on("connection", (socket) => {
-    console.log("A user connected:", socket.id);
-  
-    socket.on("joinGroup", (groupId) => {
-      socket.join(groupId);
-      console.log(`User joined group: ${groupId}`);
-    });
-  
-    socket.on("sendMessage", ({ groupId, message }) => {
-      io.to(groupId).emit("receiveMessage", message);
-    });
-  
-    socket.on("disconnect", () => console.log("User disconnected:", socket.id));
-  });
-  
 app.use("/authRoute", require("./routes/authRoute"));
 //app.use("/api/registration", require("./routes/registrationRoutes"));
 app.use("/extractText", require("./routes/extractText"));   
